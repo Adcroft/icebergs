@@ -3660,13 +3660,13 @@ end subroutine icebergs_run
 !> Prints summary of start and end states
 subroutine report_state(budgetstr, budgetunits, startstr, startval, endstr, endval, delstr, nbergs)
   ! Arguments
-  character*(*), intent(in) :: budgetstr !< Budget title
-  character*(*), intent(in) :: budgetunits !< Units of budgeted quantity
-  character*(*), intent(in) :: startstr !< Start label
+  character(*), intent(in) :: budgetstr !< Budget title
+  character(*), intent(in) :: budgetunits !< Units of budgeted quantity
+  character(*), intent(in) :: startstr !< Start label
   real, intent(in) :: startval !< Start value for budget
-  character*(*), intent(in) :: endstr !< End label
+  character(*), intent(in) :: endstr !< End label
   real, intent(in) :: endval !< End value for budget
-  character*(*), intent(in) :: delstr !< Delta label
+  character(*), intent(in) :: delstr !< Delta label
   integer, intent(in), optional :: nbergs !< Number of bergs
   ! Local variables
   if (present(nbergs)) then
@@ -3687,11 +3687,11 @@ end subroutine report_state
 !> Prints consistency summary of start and end states
 subroutine report_consistant(budgetstr, budgetunits, startstr, startval, endstr, endval)
   ! Arguments
-  character*(*), intent(in) :: budgetstr !< Budget title
-  character*(*), intent(in) :: budgetunits !< Units of budgeted quantity
-  character*(*), intent(in) :: startstr !< Start label
+  character(*), intent(in) :: budgetstr !< Budget title
+  character(*), intent(in) :: budgetunits !< Units of budgeted quantity
+  character(*), intent(in) :: startstr !< Start label
   real, intent(in) :: startval !< Start value for budget
-  character*(*), intent(in) :: endstr !< End label
+  character(*), intent(in) :: endstr !< End label
   real, intent(in) :: endval !< End value for budget
   ! Local variables
   write(*,200) budgetstr//' check:', &
@@ -3704,13 +3704,13 @@ end subroutine report_consistant
 !> Prints a budget
 subroutine report_budget(budgetstr, budgetunits, instr, inval, outstr, outval, delstr, startval, endval)
   ! Arguments
-  character*(*), intent(in) :: budgetstr !< Budget title
-  character*(*), intent(in) :: budgetunits !< Units of budgeted quantity
-  character*(*), intent(in) :: instr !< Incoming label
+  character(*), intent(in) :: budgetstr !< Budget title
+  character(*), intent(in) :: budgetunits !< Units of budgeted quantity
+  character(*), intent(in) :: instr !< Incoming label
   real, intent(in) :: inval !< Incoming value
-  character*(*), intent(in) :: outstr !< Outgoing label
+  character(*), intent(in) :: outstr !< Outgoing label
   real, intent(in) :: outval !< Outgoing value
-  character*(*), intent(in) :: delstr !< Delta label
+  character(*), intent(in) :: delstr !< Delta label
   real, intent(in) :: startval !< Start value for budget
   real, intent(in) :: endval !< End value for budget
   ! Local variables
@@ -3725,12 +3725,12 @@ end subroutine report_budget
 !> Prints summary of start and end states
 subroutine report_istate(budgetstr, startstr, startval, endstr, endval, delstr)
   ! Arguments
-  character*(*), intent(in) :: budgetstr !< Budget title
-  character*(*), intent(in) :: startstr !< Start label
+  character(*), intent(in) :: budgetstr !< Budget title
+  character(*), intent(in) :: startstr !< Start label
   integer, intent(in) :: startval !< Start value for budget
-  character*(*), intent(in) :: endstr !< End label
+  character(*), intent(in) :: endstr !< End label
   integer, intent(in) :: endval !< End value for budget
-  character*(*), intent(in) :: delstr !< Delta label
+  character(*), intent(in) :: delstr !< Delta label
   ! Local variables
   write(*,100) budgetstr//' state:', &
                         startstr//' start',startval, &
@@ -3742,12 +3742,12 @@ end subroutine report_istate
 !> Prints a budget
 subroutine report_ibudget(budgetstr,instr,inval,outstr,outval,delstr,startval,endval)
   ! Arguments
-  character*(*), intent(in) :: budgetstr !< Budget title
-  character*(*), intent(in) :: instr !< Incoming label
+  character(*), intent(in) :: budgetstr !< Budget title
+  character(*), intent(in) :: instr !< Incoming label
   integer, intent(in) :: inval !< Incoming value
-  character*(*), intent(in) :: outstr !< Outgoing label
+  character(*), intent(in) :: outstr !< Outgoing label
   integer, intent(in) :: outval !< Outgoing value
-  character*(*), intent(in) :: delstr !< Delta label
+  character(*), intent(in) :: delstr !< Delta label
   integer, intent(in) :: startval !< Start value for budget
   integer, intent(in) :: endval !< End value for budget
   ! Local variables

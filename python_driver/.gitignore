@@ -1,0 +1,6 @@
+*.o
+fms
+FMS
+mkmf
+obj
+.f2py_f2cmap
