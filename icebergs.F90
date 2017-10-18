@@ -3027,6 +3027,7 @@ subroutine icebergs_run(bergs, time, calving, uo, vo, ui, vi, tauxa, tauya, ssh,
   integer :: i, j, Iu, ju, iv, Jv, Iu_off, ju_off, iv_off, Jv_off
   real :: mask, max_SST
   real, dimension(:,:), allocatable :: uC_tmp, vC_tmp, uA_tmp, vA_tmp
+  real, dimension(:,:), allocatable :: u_tmp, v_tmp
   integer :: vel_stagger, str_stagger
   real, dimension(:,:), allocatable :: iCount
   integer :: nbonds
@@ -3514,8 +3515,20 @@ subroutine icebergs_run(bergs, time, calving, uo, vo, ui, vi, tauxa, tauya, ssh,
           str_x_berg(:,:)=0.0
           str_y_berg(:,:)=0.0
         else
-          call calculate_stress_on_ocn(grd, grd%spread_uvel(grd%isc:grd%iec,grd%jsc:grd%jec) - grd%uo(grd%isc:grd%iec,grd%jsc:grd%jec),&
-                  grd%spread_vvel(grd%isc:grd%iec,grd%jsc:grd%jec) - grd%vo(grd%isc:grd%iec,grd%jsc:grd%jec), str_x_berg, str_y_berg)
+           allocate(uC_tmp(grd%isd:grd%ied,grd%jsd:grd%jed), vC_tmp(grd%isd:grd%ied,grd%jsd:grd%jed))
+          ! Rotate vectors from lat/lon coordinates  to local grid
+          do j = grd%jsd,grd%jed ; do i = grd%isd,grd%ied
+            u_tmp(i,j)= grd%spread_uvel(i,j) - grd%uo(i,j)
+            v_tmp(i,j)= grd%spread_vvel(i,j) - grd%vo(i,j)
+            call rotate(u_tmp(i,j), v_tmp(i,j), grd%cos(i,j), -grd%sin(i,j))
+          enddo; enddo
+
+          call calculate_stress_on_ocn(grd, u_tmp(grd%isc:grd%iec,grd%jsc:grd%jec), v_tmp(grd%isc:grd%iec,grd%jsc:grd%jec), str_x_berg, str_y_berg)
+          !call calculate_stress_on_ocn(grd, grd%spread_uvel - grd%uo, grd%spread_vvel - grd%vo, str_x_berg, str_y_berg)
+          !call calculate_stress_on_ocn(grd, grd%spread_uvel(grd%isc:grd%iec,grd%jsc:grd%jec) - grd%uo(grd%isc:grd%iec,grd%jsc:grd%jec),&
+          !        grd%spread_vvel(grd%isc:grd%iec,grd%jsc:grd%jec) - grd%vo(grd%isc:grd%iec,grd%jsc:grd%jec), str_x_berg, str_y_berg,&
+          !        grd%cos(grd%isc:grd%iec,grd%jsc:grd%jec), grd%sin(grd%isc:grd%iec,grd%jsc:grd%jec) )
+          deallocate(u_tmp, v_tmp)
         endif
       endif
     endif
@@ -5317,8 +5330,11 @@ subroutine calculate_stress_on_ocn(grd, u, v, str_x_berg, str_y_berg)
   real :: cd ! Drag Coefitient.
   real :: cddvmod ! Used in iceberg stress calculation.
   cd=0.0015 
+
   str_x_berg(:,:)=cd*sqrt(u(:,:)*u(:,:) + v(:,:)*v(:,:))*u(:,:)
   str_y_berg(:,:)=cd*sqrt(u(:,:)*u(:,:) + v(:,:)*v(:,:))*v(:,:)
+
+
 end subroutine calculate_stress_on_ocn
 
 
