@@ -2,14 +2,12 @@ TEMPLATE ?= ./mkmf/templates/ncrc-intel.mk
 
 # This file will be created by mkmf
 -include makefile.mk
-# Some mkmf file set SHELL to csh which should be removed from the templates
-SHELL=bash
 
 makefile.mk: mkmf path_names
 	./mkmf/bin/mkmf -m $@ -t $(TEMPLATE) -c "-Duse_libMPI -Duse_netCDF" -p bergs.x path_names
 path_names: mkmf FMS ../src ../driver
 	rm -f path_names
-	./mkmf/bin/list_paths FMS/{mpp,diag_manager,time_manager,include,memutils,constants,platform,fms,random_numbers,mosaic,exchange} ../src ../driver FMS
+	./mkmf/bin/list_paths FMS/mpp FMS/diag_manager FMS/time_manager FMS/include FMS/memutils FMS/constants FMS/platform FMS/fms FMS/random_numbers FMS/mosaic FMS/exchange ../src ../driver
 mkmf:
 	git clone https://github.com/NOAA-GFDL/mkmf
 FMS:
