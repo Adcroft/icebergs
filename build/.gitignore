@@ -1,5 +1,7 @@
+FMS
+mkmf
 path_names
-Makefile
+*.mk
 bergs.x
 logfile.000000.out
 .bergs.x.cppdefs
